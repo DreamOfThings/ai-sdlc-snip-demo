@@ -1,0 +1,14 @@
+{
+  "name": "snip-cli",
+  "version": "0.1.0",
+  "description": "Snip CLI — zero-dependency Node.js client for the Snip URL shortener",
+  "bin": {
+    "snip": "./cli.js"
+  },
+  "scripts": {
+    "start": "node cli.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
