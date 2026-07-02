@@ -1,2 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-body { background: #f1f5f9; color: #1e293b; }
+
+:root {
+  /* ── Colors ─────────────────────────────────────────────────────────── */
+  --bg:          #09090b;
+  --surface:     rgba(255, 255, 255, 0.04);
+  --surface-hi:  rgba(255, 255, 255, 0.07);
+  --border:      rgba(255, 255, 255, 0.09);
+  --text:        #fafafa;
+  --muted:       rgba(250, 250, 250, 0.50);
+  --accent-a:    #ff6b35;
+  --accent-b:    #f72585;
+  --accent-c:    #9b5de5;
+  --gradient:    linear-gradient(135deg, var(--accent-a), var(--accent-b), var(--accent-c));
+
+  /* ── Radii ──────────────────────────────────────────────────────────── */
+  --radius-pill: 9999px;
+  --radius-card: 16px;
+  --radius-sm:   10px;
+
+  /* ── Shadows ────────────────────────────────────────────────────────── */
+  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.5), 0 0 0 1px var(--border);
+  --shadow-glow: 0 0 0 3px rgba(255, 107, 53, 0.25), 0 0 28px rgba(255, 107, 53, 0.10);
+
+  /* ── Typography ─────────────────────────────────────────────────────── */
+  --font:      'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
+
+  /* ── Spacing (0.25 rem × n) ─────────────────────────────────────────── */
+  --space-1:  0.25rem;
+  --space-2:  0.50rem;
+  --space-3:  0.75rem;
+  --space-4:  1.00rem;
+  --space-6:  1.50rem;
+  --space-8:  2.00rem;
+  --space-12: 3.00rem;
+  --space-16: 4.00rem;
+}
+
+html, body {
+  min-height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

@@ -1,41 +1,46 @@
-﻿<main>
-  <h1>Snip</h1>
+﻿<div class="hero-glow" aria-hidden="true"></div>
 
-  <section class="card">
-    <h2>Shorten a URL</h2>
-    <form #f="ngForm" (ngSubmit)="submit(f)">
+<main>
+  <header class="hero">
+    <h1>Snip</h1>
+    <p class="hero-sub">Paste a long URL&hairsp;&mdash;&hairsp;get a short one.</p>
+  </header>
+
+  <section class="chat-wrap">
+    <form #f="ngForm" (ngSubmit)="submit(f)" class="chat-form">
       <input
         name="url"
         type="url"
-        placeholder="https://example.com"
+        class="chat-input"
+        placeholder="Paste a URL to shorten&hellip;"
         autocomplete="off"
         [ngModel]="url()"
         (ngModelChange)="url.set($event)"
         required
       />
-      <button type="submit" [disabled]="submitting()">
-        {{ submitting() ? 'Shortening\u2026' : 'Shorten' }}
+      <button type="submit" class="chat-btn" [disabled]="submitting()">
+        {{ submitting() ? '\u2026' : 'Shorten' }}
       </button>
     </form>
 
     @if (formError()) {
-      <p class="msg error">{{ formError() }}</p>
+      <p class="notice error">{{ formError() }}</p>
     }
     @if (newLink(); as link) {
-      <p class="msg success">
-        Short URL:
+      <p class="notice success">
+        <span class="notice-label">Ready</span>
         <a [href]="link.shortUrl" target="_blank" rel="noopener">{{ link.shortUrl }}</a>
       </p>
     }
   </section>
 
   <section class="card">
-    <h2>All links</h2>
+    <h2 class="card-title">All links</h2>
     @if (loadError()) {
-      <p class="msg error">{{ loadError() }}</p>
+      <p class="notice error">{{ loadError() }}</p>
     }
     @if (links().length === 0 && !loadError()) {
-      <p class="empty">No links yet.</p>
+      <p class="empty">No links shortened yet.</p>
     } @else {
       <table>
         <thead>
@@ -50,13 +55,13 @@
           @for (link of links(); track link.code) {
             <tr>
               <td>
-                <a [href]="link.shortUrl" target="_blank" rel="noopener">{{ link.code }}</a>
+                <a [href]="link.shortUrl" target="_blank" rel="noopener" class="code-link">{{ link.code }}</a>
               </td>
               <td class="url-cell">
                 <a [href]="link.url" target="_blank" rel="noopener">{{ link.url }}</a>
               </td>
-              <td>{{ link.hits }}</td>
-              <td>{{ link.createdAt | date : 'short' }}</td>
+              <td class="hits-cell">{{ link.hits }}</td>
+              <td class="date-cell">{{ link.createdAt | date : 'short' }}</td>
             </tr>
           }
         </tbody>

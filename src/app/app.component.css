@@ -1,115 +1,266 @@
+﻿/* â”€â”€ Page shell â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 :host {
   display: block;
-  font-family: system-ui, -apple-system, sans-serif;
-  max-width: 860px;
-  margin: 2rem auto;
-  padding: 0 1rem;
+  position: relative;
+  min-height: 100vh;
 }
 
-h1 {
-  font-size: 2rem;
-  font-weight: 700;
-  margin-bottom: 1.5rem;
+/* Ambient hero glow â€” warm radial gradient fixed behind all content */
+.hero-glow {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background: radial-gradient(
+    ellipse 90% 55% at 50% -5%,
+    rgba(255, 107, 53, 0.20) 0%,
+    rgba(247, 37, 133, 0.12) 45%,
+    transparent 70%
+  );
 }
 
-h2 {
-  font-size: 1.1rem;
-  font-weight: 600;
-  margin-bottom: 0.75rem;
-}
-
-.card {
-  border: 1px solid #e2e8f0;
-  border-radius: 8px;
-  padding: 1.25rem;
-  margin-bottom: 1.5rem;
-  background: #fff;
-}
-
-form {
+main {
+  position: relative;
+  z-index: 1;
+  max-width: 740px;
+  margin: 0 auto;
+  padding: var(--space-12) var(--space-4) var(--space-16);
   display: flex;
-  gap: 0.5rem;
+  flex-direction: column;
+  gap: var(--space-8);
 }
 
-input[type='url'] {
+/* â”€â”€ Hero â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+.hero {
+  text-align: center;
+  padding-bottom: var(--space-2);
+}
+
+.hero h1 {
+  font-size: clamp(2.5rem, 6vw, 3.5rem);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1.1;
+  margin-bottom: var(--space-3);
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-sub {
+  font-size: 1.05rem;
+  color: var(--muted);
+  font-weight: 400;
+  letter-spacing: 0.01em;
+}
+
+/* â”€â”€ Chat-style pill input â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+.chat-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.chat-form {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  padding: 6px 6px 6px 24px;
+  gap: var(--space-2);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.chat-form:focus-within {
+  border-color: rgba(255, 107, 53, 0.55);
+  box-shadow: var(--shadow-glow);
+}
+
+.chat-input {
   flex: 1;
-  padding: 0.5rem 0.75rem;
-  border: 1px solid #cbd5e1;
-  border-radius: 6px;
-  font-size: 1rem;
-  outline: none;
-  transition: border-color 0.15s, box-shadow 0.15s;
-}
-
-input[type='url']:focus {
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 3px #bfdbfe;
-}
-
-button {
-  padding: 0.5rem 1.25rem;
-  background: #3b82f6;
-  color: #fff;
+  min-width: 0;
+  background: transparent;
   border: none;
-  border-radius: 6px;
+  outline: none;
+  color: var(--text);
   font-size: 1rem;
+  font-family: var(--font);
+}
+
+.chat-input::placeholder {
+  color: var(--muted);
+}
+
+.chat-btn {
+  flex-shrink: 0;
+  padding: 0.6rem 1.5rem;
+  background: var(--gradient);
+  color: #fff;
+  font-family: var(--font);
+  font-size: 0.9rem;
+  font-weight: 600;
+  border: none;
+  border-radius: var(--radius-pill);
   cursor: pointer;
+  letter-spacing: 0.01em;
+  transition: filter 0.15s ease, opacity 0.15s ease;
   white-space: nowrap;
 }
 
-button:hover:not(:disabled) {
-  background: #2563eb;
+.chat-btn:hover:not(:disabled) {
+  filter: brightness(1.12);
 }
 
-button:disabled {
-  opacity: 0.55;
+.chat-btn:disabled {
+  opacity: 0.45;
   cursor: not-allowed;
 }
 
-.msg {
-  margin-top: 0.65rem;
-  font-size: 0.9rem;
+/* â”€â”€ Notices (result & errors) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+.notice {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: 0.875rem;
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
 }
 
-.error { color: #dc2626; }
-.success { color: #16a34a; }
+.notice.error {
+  background: rgba(239, 68, 68, 0.10);
+  border-color: rgba(239, 68, 68, 0.25);
+  color: #fca5a5;
+}
+
+.notice.success {
+  background: rgba(74, 222, 128, 0.07);
+  border-color: rgba(74, 222, 128, 0.20);
+  color: #86efac;
+}
+
+.notice.success a {
+  color: inherit;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.notice-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  opacity: 0.65;
+  flex-shrink: 0;
+}
+
+/* â”€â”€ Links card â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  padding: var(--space-6);
+  box-shadow: var(--shadow-card);
+}
+
+.card-title {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: var(--space-4);
+}
 
 .empty {
-  color: #64748b;
-  font-size: 0.9rem;
+  color: var(--muted);
+  font-size: 0.875rem;
+  text-align: center;
+  padding: var(--space-8) 0;
 }
 
+/* â”€â”€ Table â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 0.9rem;
+  font-size: 0.875rem;
 }
 
 th,
 td {
   text-align: left;
-  padding: 0.5rem 0.75rem;
-  border-bottom: 1px solid #f1f5f9;
+  padding: 0.6rem var(--space-3);
+  border-bottom: 1px solid var(--border);
 }
 
 th {
+  font-size: 0.72rem;
   font-weight: 600;
-  background: #f8fafc;
-  color: #475569;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+tbody tr:last-child td {
+  border-bottom: none;
+}
+
+tbody tr {
+  transition: background 0.12s ease;
+}
+
+tbody tr:hover td {
+  background: var(--surface-hi);
+}
+
+a {
+  color: var(--text);
+  text-decoration: none;
+}
+
+.code-link {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--accent-a);
+  letter-spacing: 0.05em;
+  transition: color 0.12s ease;
+}
+
+.code-link:hover {
+  color: var(--accent-b);
 }
 
 .url-cell {
-  max-width: 280px;
+  max-width: 260px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-a {
-  color: #3b82f6;
-  text-decoration: none;
+.url-cell a {
+  color: var(--muted);
+  transition: color 0.12s ease;
 }
 
-a:hover {
-  text-decoration: underline;
+.url-cell a:hover {
+  color: var(--text);
+}
+
+.hits-cell {
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.date-cell {
+  color: var(--muted);
+  white-space: nowrap;
+  font-size: 0.8rem;
 }
