@@ -1,0 +1,115 @@
+:host {
+  display: block;
+  font-family: system-ui, -apple-system, sans-serif;
+  max-width: 860px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+h2 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+.card {
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 1.25rem;
+  margin-bottom: 1.5rem;
+  background: #fff;
+}
+
+form {
+  display: flex;
+  gap: 0.5rem;
+}
+
+input[type='url'] {
+  flex: 1;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+input[type='url']:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px #bfdbfe;
+}
+
+button {
+  padding: 0.5rem 1.25rem;
+  background: #3b82f6;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+button:hover:not(:disabled) {
+  background: #2563eb;
+}
+
+button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.msg {
+  margin-top: 0.65rem;
+  font-size: 0.9rem;
+}
+
+.error { color: #dc2626; }
+.success { color: #16a34a; }
+
+.empty {
+  color: #64748b;
+  font-size: 0.9rem;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+th,
+td {
+  text-align: left;
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+th {
+  font-weight: 600;
+  background: #f8fafc;
+  color: #475569;
+}
+
+.url-cell {
+  max-width: 280px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+a {
+  color: #3b82f6;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
