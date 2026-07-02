@@ -42,13 +42,17 @@ that aggregates all three via git submodules, each pinned to the tip of its bran
 | `backend/` | `backend` | Bun server · `server.js` · zero npm deps · in-memory `Map` |
 | `frontend/` | `frontend` | Angular 19 SPA · signals · `HttpClient` · dark UI |
 | `cli/` | `cli` | CommonJS Node CLI · zero npm deps · global `fetch` |
+| `bundle/` | `bundle` | **Generated output** — do not hand-edit; see [Bundle](#bundle) |
 
 ```
 snip-demo/           ← superproject (main branch)
 ├── .gitmodules
+├── scripts/
+│   └── build-bundle.mjs   ← build automation
 ├── backend/         ← submodule → branch: backend
 ├── frontend/        ← submodule → branch: frontend
-└── cli/             ← submodule → branch: cli
+├── cli/             ← submodule → branch: cli
+└── bundle/          ← submodule → branch: bundle (generated)
 ```
 
 ## Cloning
@@ -150,3 +154,43 @@ git push
 > **Why `--remote`?**  Without it, `git submodule update` resets the submodule to
 > the SHA already recorded in the superproject's index. `--remote` fetches and
 > checks out the tip of the tracked branch instead, then you commit that new SHA.
+
+## Bundle
+
+The `bundle/` submodule (branch `bundle`) is **generated output** — a
+self-contained deployment artifact produced by `scripts/build-bundle.mjs`.
+Never commit to it by hand.
+
+### What it contains
+
+| File | Source |
+|------|--------|
+| `server.js` | copied from `backend/` |
+| `cli.js` | copied from `cli/` |
+| `public/` | Angular production build (`frontend/dist/snip-frontend/browser/`) |
+| `.env` | `PUBLIC_DIR=./public` — Bun auto-loads this to enable UI serving |
+| `package.json` | `start: bun server.js`, no `"type"` field |
+| `Dockerfile` | `FROM oven/bun:1-alpine`, single-process, port 3000 |
+| `.dockerignore` | excludes `.git`, `node_modules`, `.env` |
+| `railway.json` | selects DOCKERFILE builder for Railway |
+
+### Running the bundle locally
+
+```sh
+cd bundle
+bun server.js          # serves API on :3000 + UI from ./public
+SNIP_API=http://localhost:3000 node cli.js ls   # CLI against same server
+```
+
+### Regenerating
+
+```sh
+# dry-run (no push)
+node scripts/build-bundle.mjs
+
+# build + push both bundle branch and main
+node scripts/build-bundle.mjs --push
+```
+
+The script is a **safe no-op** when nothing has changed — it checks
+`git diff --cached` before every commit and skips when the stage is empty.
